@@ -1,3 +1,5 @@
+import datetime
+
 tasks = []
 completed_tasks = []
 priorities = []
@@ -52,7 +54,8 @@ while True:
     print("5. Task Statistics")
     print("6. Search Tasks")
     print("7. Filter Tasks")
-    print("8. Exit")
+    print("8. Deadline Alerts")
+    print("9. Exit")
     print("-"*35)
 
     choice = int(input("Enter Choice: "))
@@ -200,8 +203,38 @@ while True:
 
         if found == False:
             print("No matching tasks")
-                
+
     elif choice == 8:
+        today = datetime.date.today
+        found = False
+
+        print("\n---Deadline Alerts---")
+
+        for i in range(len(tasks)):
+            if completed_tasks[i] == False:
+                try:
+                    deadline = datetime.datetime.strptime(
+                        deadlines[i], "%d-%m-%Y"
+                    ).date()
+
+                    days_left = (deadline - today).days
+
+                    if days_left < 0:
+                        print(tasks[i], "- Overdue!")
+                        found = True
+                    elif days_left == 0:
+                        print(tasks[i], "- Due Today!")
+                        found = True
+                    elif days_left <= 3:
+                        print(tasks[i], "- Due in", days_left, "day(s)")
+                        found = True
+                except:
+                    print("Invalid deadline for: ",tasks[i])
+
+        if found == False:
+                print("No urgent deadlines. Yeay!")
+
+    elif choice == 9:
         file = open("tasks.txt", "w")
 
         for i in range(len(tasks)):
