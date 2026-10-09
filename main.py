@@ -4,6 +4,7 @@ tasks = []
 completed_tasks = []
 priorities = []
 deadlines = []
+notes = []
 
 try:
     file = open("tasks.txt", "r")
@@ -15,6 +16,11 @@ try:
         completed_tasks.append(data[1]=="True")
         priorities.append(data[2])
         deadlines.append(data[3])
+
+        if len(tasks) >= 5:
+            notes.append(tasks[4])
+        else:
+            notes.append("")
 
     file.close()
 except FileNotFoundError:
@@ -62,6 +68,8 @@ while True:
 
     if choice == 1:
         task = input("Enter Task: ")
+        note = input("Enter task notes(Optional): ")
+        notes.append(note)
 
         if task.strip() == "":
             print("Task can't be empty.")
@@ -106,6 +114,11 @@ while True:
             print("Priority: ", priorities[i])
             print("Deadline: ", deadlines[i])
 
+            if notes[i] != "":
+                print("Notes: ", notes[i])
+            else:
+                print("Notes: None")
+
     elif choice == 3:
         if len(tasks) == 0:
             print("No tasks to complete.")
@@ -129,6 +142,7 @@ while True:
             completed_tasks.pop(num-1)
             priorities.pop(num-1)
             deadlines.pop(num-1)
+            notes.pop(num-1)
 
             print("Task deleted!")
 
@@ -245,7 +259,8 @@ while True:
                 tasks[i] + "|" +
                 str(completed_tasks[i]) + "|" +
                 priorities[i] + "|" +
-                deadlines[i] + "\n"
+                deadlines[i] + "|" +
+                notes[i] + "\n"
             )
         file.close()
         print("Tasks Saved")
