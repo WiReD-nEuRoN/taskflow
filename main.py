@@ -22,13 +22,36 @@ except FileNotFoundError:
 print("Welcome to the TaskFlow!")
 
 while True:
-    print("\n***TaskFlow***")
+    print("\n"+"="*35)
+    print("         TaskFlow")
+    print("         Your Task Manager")
+    print("="*35)
+
+    total = len(tasks)
+    done = 0
+
+    for i in range(len(tasks)):
+        if completed_tasks[i] == True:
+            done += 1
+    pending = total - done
+
+    if pending > 0:
+        print("Reminder:", pending, "task(s) still pending.")
+    else:
+        print("Great! All tasks completed.")
+
+    print("Total Tasks:", total)
+    print("Completed:", done)
+    print("Pending:", pending)
+    print("="*35)
+
     print("1. Add task")
     print("2. View Tasks")
     print("3. Complete Task")
     print("4. Delete Task")
     print("5. Task Statistics")
     print("6. Exit")
+    print("-"*35)
 
     choice = int(input("Enter Choice: "))
 
