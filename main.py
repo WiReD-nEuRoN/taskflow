@@ -1,5 +1,7 @@
 tasks = []
 completed_tasks = []
+priorities = []
+deadlines = []
 
 print("Welcome to the TaskFlow!")
 
@@ -8,14 +10,36 @@ while True:
     print("1. Add task")
     print("2. View Tasks")
     print("3. Complete Task")
-    print("4. Exit")
+    print("4. Delete Task")
+    print("5. Exit")
 
     choice = int(input("Enter Choice: "))
 
     if choice == 1:
         task = input("Enter Task: ")
+
+        print("Choose Priority:")
+        print("1. High")
+        print("2. Medium")
+        print("3. Low")
+
+        p_choice = int(input("Enter Priority: "))
+
+        if p_choice == 1:
+            priority = "High"
+        elif p_choice == 2:
+            priority = "Medium"
+        elif p_choice == 3:
+            priority = "Low"
+        else:
+            priority = "Medium"
+
+        deadline = input("Enter Deadline (DD-MM-YYYY): ")
         tasks.append(task)
         completed_tasks.append(False)
+        priorities.append(priority)
+        deadlines.append(deadline)
+
         print("Task added!")
 
     elif choice == 2:
@@ -24,9 +48,15 @@ while True:
             print("No Tasks yet!")
         for i in range(len(tasks)):
             if completed_tasks[i] == True:
-                print(i+1,".", tasks[i], "- Done")
+                status = "Done"
             else:
-                print(i+1,".", tasks[i], "- Pending")
+                status = "Pending"
+
+            print("\nTask: ",i+1)
+            print("Name: ", tasks[i])
+            print("Status: ", status)
+            print("Priority: ", priorities[i])
+            print("Deadline: ", deadlines[i])
 
     elif choice == 3:
         num = int(input("Enter Task Number: "))
@@ -38,6 +68,19 @@ while True:
             print("Invalid Task Number")
 
     elif choice == 4:
+        num = int(input("Enter Task Number: "))
+
+        if num >= 1 and num <= len(tasks):
+            tasks.pop(num-1)
+            completed_tasks.pop(num-1)
+            deadlines.pop(num-1)
+
+            print("Task deleted!")
+
+        else:
+            print("Invalid task number.")
+
+    elif choice == 5:
         print("Thanks for using TaskFlow")
         break
 
