@@ -3,6 +3,22 @@ completed_tasks = []
 priorities = []
 deadlines = []
 
+try:
+    file = open("tasks.txt", "r")
+
+    for line in file:
+        data = line.strip().split("|")
+
+        tasks.append(data[0])
+        completed_tasks.append(data[1]=="True")
+        priorities.append(data[2])
+        deadlines.append(data[3])
+
+    file.close()
+except FileNotFoundError:
+    pass
+
+
 print("Welcome to the TaskFlow!")
 
 while True:
@@ -104,6 +120,17 @@ while True:
             print("Completion 0%")
 
     elif choice == 6:
+        file = open("tasks.txt", "w")
+
+        for i in range(len(tasks)):
+            file.write(
+                tasks[i] + "|" +
+                str(completed_tasks[i]) + "|" +
+                priorities[i] + "|" +
+                deadlines[i] + "\n"
+            )
+        file.close()
+        print("Tasks Saved")
         print("Thanks for using TaskFlow")
         break
 
