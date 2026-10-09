@@ -50,7 +50,9 @@ while True:
     print("3. Complete Task")
     print("4. Delete Task")
     print("5. Task Statistics")
-    print("6. Exit")
+    print("6. Search Tasks")
+    print("7. Filter Tasks")
+    print("8. Exit")
     print("-"*35)
 
     choice = int(input("Enter Choice: "))
@@ -153,6 +155,53 @@ while True:
             print("Completion 0%")
 
     elif choice == 6:
+        srch = input("Enter task name to search: ").lower()
+        found = False
+
+        for i in range(len(tasks)):
+            if srch in tasks[i].lower():
+                print("\nTask: ",tasks[i])
+                print("Priority: ",priorities[i])
+                print("Deadline: ",deadlines[i])
+
+                if completed_tasks[i] == True:
+                    print("Status: Done")
+                else:
+                    print("Status: Pending")
+
+                found = True
+        if found == False:
+                    print("No Matching tasks found!")
+
+    elif choice == 7:
+        print("1. High Priority")
+        print("2. Medium Priority")
+        print("3. Low Priority")
+        print("4. Pending Tasks")
+        print("5. Completed Tasks")
+
+        filter_chc = int(input("Choose Filter: "))
+        found = False
+
+        for i in range(len(tasks)):
+            if filter_chc == 1 and priorities[i] == "High":
+                print(tasks[i], "-",deadlines[i])
+                found = True
+            elif filter_chc == 2 and priorities[i] == "Medium":
+                print(tasks[i], "-", deadlines[i])
+                found = True
+            elif filter_chc == 3 and priorities[i] == "Low":
+                print(tasks[i], "-", deadlines[i])
+            elif filter_chc == 4 and completed_tasks[i] == False:
+                print(tasks[i],"-",priorities[i])
+                found = True
+            elif filter_chc == 5 and completed_tasks[i] == True:
+                print(tasks[i], "-", priorities[i])
+
+        if found == False:
+            print("No matching tasks")
+                
+    elif choice == 8:
         file = open("tasks.txt", "w")
 
         for i in range(len(tasks)):
