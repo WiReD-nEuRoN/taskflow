@@ -205,7 +205,7 @@ while True:
             print("No matching tasks")
 
     elif choice == 8:
-        today = datetime.date.today
+        today = datetime.date.today()
         found = False
 
         print("\n---Deadline Alerts---")
@@ -213,8 +213,10 @@ while True:
         for i in range(len(tasks)):
             if completed_tasks[i] == False:
                 try:
+                    today = datetime.date.today()
+
                     deadline = datetime.datetime.strptime(
-                        deadlines[i], "%d-%m-%Y"
+                        deadlines[i].strip(), "%d-%m-%Y"
                     ).date()
 
                     days_left = (deadline - today).days
@@ -228,8 +230,9 @@ while True:
                     elif days_left <= 3:
                         print(tasks[i], "- Due in", days_left, "day(s)")
                         found = True
-                except:
-                    print("Invalid deadline for: ",tasks[i])
+                except ValueError:
+                    print("Invalid deadline for:", tasks[i])
+                    print("Stored deadline:", repr(deadlines[i]))
 
         if found == False:
                 print("No urgent deadlines. Yeay!")
