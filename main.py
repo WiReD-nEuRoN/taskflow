@@ -11,7 +11,8 @@ while True:
     print("2. View Tasks")
     print("3. Complete Task")
     print("4. Delete Task")
-    print("5. Exit")
+    print("5. Task Statistics")
+    print("6. Exit")
 
     choice = int(input("Enter Choice: "))
 
@@ -81,6 +82,28 @@ while True:
             print("Invalid task number.")
 
     elif choice == 5:
+        total = len(tasks)
+        done = 0
+        pending = 0
+
+        for i in range(len(tasks)):
+            if completed_tasks[i] == True:
+                done += 1
+            else:
+                pending += 1
+
+        print("\n***Task Stastics***")
+        print("Total Tasks: ",total)
+        print("Completed Tasks: ",done)
+        print("Pending Tasks: ", pending)
+
+        if total > 0:
+            percentage = (done/total)*100
+            print("Complettion: ",round(percentage, 2),"%")
+        else:
+            print("Completion 0%")
+
+    elif choice == 6:
         print("Thanks for using TaskFlow")
         break
 
