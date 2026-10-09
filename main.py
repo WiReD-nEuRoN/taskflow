@@ -35,6 +35,9 @@ while True:
     if choice == 1:
         task = input("Enter Task: ")
 
+        if task.strip() == "":
+            print("Task can't be empty.")
+
         print("Choose Priority:")
         print("1. High")
         print("2. Medium")
@@ -76,20 +79,27 @@ while True:
             print("Deadline: ", deadlines[i])
 
     elif choice == 3:
-        num = int(input("Enter Task Number: "))
-
-        if num >=1 and num <= len(tasks):
-            completed_tasks[num - 1] = True
-            print("Task Done.")
+        if len(tasks) == 0:
+            print("No tasks to complete.")
         else:
-            print("Invalid Task Number")
+            num = int(input("Enter Task number: "))
+
+            if num >= 1 and num <= len(tasks):
+                completed_tasks[num-1] = True
+                print("Task Completed.")
+            else:
+                print("Invalid task number.")
 
     elif choice == 4:
-        num = int(input("Enter Task Number: "))
+        if len(tasks) == 0:
+            print("No task to delete.")
+        else:
+            num = int(input("Enter Task Number: "))
 
         if num >= 1 and num <= len(tasks):
             tasks.pop(num-1)
             completed_tasks.pop(num-1)
+            priorities.pop(num-1)
             deadlines.pop(num-1)
 
             print("Task deleted!")
