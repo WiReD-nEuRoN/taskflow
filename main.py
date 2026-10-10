@@ -232,10 +232,20 @@ while True:
         found = False
 
         for i in range(len(tasks)):
-            if srch in tasks[i].lower():
-                print("\nTask: ",tasks[i])
-                print("Priority: ",priorities[i])
-                print("Deadline: ",deadlines[i])
+            task_name = tasks[i].lower()
+            task_notes = notes[i].lower()
+            task_category = categories[i].lower()
+
+            if (srch in task_name or
+                srch in task_notes or
+                srch in task_category):
+
+                print("\nTask:",i+1)
+                print("Name:",tasks[i])
+                print("Category:",categories[i])
+                print("Priority:",priorities[i])
+                print("Deadline:",deadlines[i])
+                print("Notes:",notes[i])
 
                 if completed_tasks[i] == True:
                     print("Status: Done")
@@ -243,8 +253,9 @@ while True:
                     print("Status: Pending")
 
                 found = True
+
         if found == False:
-                    print("No Matching tasks found!")
+            print("No matching tasks found")
 
     elif choice == 7:
         print("1. High Priority")
