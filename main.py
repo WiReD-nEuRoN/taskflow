@@ -208,15 +208,25 @@ while True:
                 num = 0
                 print("Please enter a valid task number.")
 
-        if num >= 1 and num <= len(tasks):
-            tasks.pop(num-1)
-            completed_tasks.pop(num-1)
-            priorities.pop(num-1)
-            deadlines.pop(num-1)
-            notes.pop(num-1)
-            categories.pop(num-1)
 
-            print("Task deleted!")
+        if num >= 1 and num <= len(tasks):
+            print("Task:",tasks[num-1])
+
+            confirmation = input("Are you sure you want to delete this task? (yes/no): ")
+
+            if confirmation == "yes":
+                tasks.pop(num-1)
+                completed_tasks.pop(num-1)
+                priorities.pop(num-1)
+                deadlines.pop(num-1)
+                notes.pop(num-1)
+                categories.pop(num-1)
+                print("Task deleted!")
+            elif confirmation == "no":
+                print("Task Deletion cancelled.")
+
+            else:
+                print("Invalid Choice. Task was not deleted.")
 
         else:
             print("Invalid task number.")
