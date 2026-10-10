@@ -228,6 +228,11 @@ while True:
         print("3. Low Priority")
         print("4. Pending Tasks")
         print("5. Completed Tasks")
+        print("6. School")
+        print("7. Robotics")
+        print("8. Coding")
+        print("9. Personal")
+        print("10. General")
 
         filter_chc = int(input("Choose Filter: "))
         found = False
@@ -246,6 +251,21 @@ while True:
                 found = True
             elif filter_chc == 5 and completed_tasks[i] == True:
                 print(tasks[i], "-", priorities[i])
+            elif filter_chc == 6 and categories[i] == "School":
+                print(tasks[i],"-",deadlines[i])
+                found = True
+            elif filter_chc == 7 and categories[i] == "Robotics":
+                print(tasks[i], "-",deadlines[i])
+                found = True
+            elif filter_chc == 8 and categories[i] == "Coding":
+                print(tasks[i],"-",deadlines[i])
+                found = True
+            elif filter_chc == 9 and categories[i] == "Personal":
+                print(tasks[i],"-",deadlines[i])
+                found = True
+            elif filter_chc == 10 and categories[i] == "General":
+                print(tasks[i],"-",deadlines[i])
+                found = True
 
         if found == False:
             print("No matching tasks")
