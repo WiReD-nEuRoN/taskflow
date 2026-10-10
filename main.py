@@ -5,6 +5,7 @@ completed_tasks = []
 priorities = []
 deadlines = []
 notes = []
+categories = []
 
 try:
     file = open("tasks.txt", "r")
@@ -21,6 +22,11 @@ try:
             notes.append(tasks[4])
         else:
             notes.append("")
+
+        if len(data)>=6:
+            categories.append(data[5])
+        else:
+            categories.append("General")
 
     file.close()
 except FileNotFoundError:
@@ -98,6 +104,28 @@ while True:
         priorities.append(priority)
         deadlines.append(deadline)
 
+        print("\nChoose Category:")
+        print("1. School")
+        print("2. Robotics")
+        print("3. Coding Projects")
+        print("4. Personal")
+        print("5. General")
+
+        category_chc = int(input("Enter Category: "))
+
+        if category_chc == 1:
+            category = "School"
+        elif category_chc == 2:
+            category = "Robotics"
+        elif category_chc == 3:
+            category = "Coding Projects"
+        elif category_chc == 4:
+            category = "Personal"
+        else:
+            category = "General"
+
+        categories.append(category)
+
         print("Task added!")
 
     elif choice == 2:
@@ -115,6 +143,7 @@ while True:
             print("Status: ", status)
             print("Priority: ", priorities[i])
             print("Deadline: ", deadlines[i])
+            print("Category: ", categories[i])
 
             if notes[i] != "":
                 print("Notes: ", notes[i])
@@ -145,6 +174,7 @@ while True:
             priorities.pop(num-1)
             deadlines.pop(num-1)
             notes.pop(num-1)
+            categories.pop(num-1)
 
             print("Task deleted!")
 
@@ -422,7 +452,8 @@ while True:
                 str(completed_tasks[i]) + "|" +
                 priorities[i] + "|" +
                 deadlines[i] + "|" +
-                notes[i] + "\n"
+                notes[i] + "|" +
+                categories[i] + "\n"
             )
         file.close()
         print("Tasks Saved")
