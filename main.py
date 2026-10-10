@@ -96,7 +96,11 @@ while True:
     print("11. Exit")
     print("-"*35)
 
-    choice = int(input("Enter Choice: "))
+    try:
+        choice = int(input("Enter Choice: "))
+    except ValueError:
+        print("Invalid input. Please Enter a number")
+        continue
 
     if choice == 1:
         task = input("Enter Task: ")
@@ -111,7 +115,11 @@ while True:
         print("2. Medium")
         print("3. Low")
 
-        p_choice = int(input("Enter Priority: "))
+        try:
+            p_choice = int(input("Enter Priority: "))
+        except ValueError:
+            p_choice = 2
+            print("Invalid input. Medium priority Selected")
 
         if p_choice == 1:
             priority = "High"
@@ -178,7 +186,11 @@ while True:
         if len(tasks) == 0:
             print("No tasks to complete.")
         else:
-            num = int(input("Enter Task number: "))
+            try:
+                num = int(input("Enter Task Number: "))
+            except ValueError:
+                num = 0
+                print("Please enter a valid task number.")
 
             if num >= 1 and num <= len(tasks):
                 completed_tasks[num-1] = True
@@ -190,7 +202,11 @@ while True:
         if len(tasks) == 0:
             print("No task to delete.")
         else:
-            num = int(input("Enter Task Number: "))
+            try:
+                num = int(input("Enter Task Number: "))
+            except ValueError:
+                num = 0
+                print("Please enter a valid task number.")
 
         if num >= 1 and num <= len(tasks):
             tasks.pop(num-1)
@@ -269,7 +285,11 @@ while True:
         print("9. Personal")
         print("10. General")
 
-        filter_chc = int(input("Choose Filter: "))
+        try:
+            filter_chc = int(input("Choose a filter: "))
+        except ValueError:
+            filter_chc = 0
+            print("Invalidd filter. Please choose a number.")
         found = False
 
         for i in range(len(tasks)):
@@ -312,7 +332,11 @@ while True:
         print("3. Sort by Status")
         print("4. Sort by Priority and Deadline")
 
-        sort_chc = int(input("\nChoose Sorting method: "))
+        try:
+            sort_chc = int(input("\nChoose sorting method: "))
+        except ValueError:
+            sort_chc = 0
+            print("Invalid sorting choice.")
 
         if sort_chc == 1 or sort_chc == 2 or sort_chc == 3 or sort_chc == 4:
             for i in range(len(tasks)):
@@ -586,3 +610,4 @@ while True:
 
     else:
         print("Invalid Choice")
+
