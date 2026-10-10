@@ -473,6 +473,7 @@ while True:
                 print("2. Edit Notes")
                 print("3. Edit priority")
                 print("4. Edit Deadline")
+                print("5. Edit Category")
 
                 edit_chc = int(input("Choose what to edit: "))
 
@@ -522,6 +523,33 @@ while True:
                     except ValueError:
                         print("Inavlid Date Format!")
                         print("Please use DD-MM-YYYY")
+
+                elif edit_chc == 5:
+                    print("\nChoose New Category: ")
+                    print("1. School")
+                    print("2. Robotics")
+                    print("3. Coding")
+                    print("4. Personal")
+                    print("5. General")
+
+                    category_chc = int(input("Enter Category: "))
+
+                    if category_chc == 1:
+                        categories[num-1] = "School"
+                        print("Category Updated.")
+                    elif category_chc == 2:
+                        categories[num-1] = "Robotics"
+                        print("Category Updated.")
+                    elif category_chc == 3:
+                        categories[num-1] = "Coding"
+                        print("Category Updated")
+                    elif category_chc == 4:
+                        categories[num-1] = "Perrsonal"
+                    elif category_chc == 5:
+                        categories[num-1] = "General"
+                    else:
+                        print("Invalid Choice.")
+
 
                 else:
                     print("Invalid Edit Choice.")
