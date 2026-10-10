@@ -60,8 +60,9 @@ while True:
     print("5. Task Statistics")
     print("6. Search Tasks")
     print("7. Filter Tasks")
-    print("8. Deadline Alerts")
-    print("9. Exit")
+    print("8. Sort Tasks")
+    print("9. Deadline Alerts")
+    print("10. Exit")
     print("-"*35)
 
     choice = int(input("Enter Choice: "))
@@ -219,6 +220,94 @@ while True:
             print("No matching tasks")
 
     elif choice == 8:
+        print("\n---Sort Tasks---")
+        print("1. Sort by priority")
+        print("2. Sort by Deadline")
+        print("3. Sort by Status")
+
+        sort_chc = int(input("\nChoose Sorting method: "))
+
+        if sort_chc == 1 or sort_chc == 2 or sort_chc == 3:
+            for i in range(len(tasks)):
+                for j in range(i+1, len(tasks)):
+                    swap = False
+
+                    if sort_chc == 1:
+                        priority_i = 0
+                        priority_j = 0
+
+                        if priorities[i] == "High":
+                            priority_i = 1
+                        elif priorities[i] == "Medium":
+                            priority_i = 2
+                        elif priorities[i] == "Low":
+                            priority_i = 3
+
+                        if priorities[j] == "High":
+                            priority_j = 1
+                        elif priorities[j] == "Medium":
+                            priority_j = 2
+                        elif priorities[j] == "Low":
+                            priority_j = 3
+
+                        if priority_i > priority_j:
+                            swap = True
+
+                    elif sort_chc == 2:
+                        try:
+                            deadline_i = datetime.datetime.strptime(
+                                deadlines[i].strip(), "%d-%m-%Y"
+                            ).date()
+                        except ValueError:
+                            deadline_j = datetime.date.max
+
+                        if deadline_i > deadline_j:
+                            swap = True
+
+                    elif sort_chc == 3:
+                        temp = tasks[i]
+                        tasks[i] = tasks[j]
+                        tasks[j] = temp
+
+                        temp = completed_tasks[i]
+                        completed_tasks[i] = completed_tasks[j]
+                        completed_tasks[j] = temp
+
+                        temp = priorities[j]
+                        priorities[i] = priorities[j]
+                        priorities[j] = temp
+
+                        temp = deadlines[i]
+                        deadlines[i] = deadlines[j]
+                        deadlines[j] = temp
+
+                        temp = notes[i]
+                        notes[i] = notes[j]
+                        notes[j] = temp
+
+            print("\nTasks sorted successfully")
+            print("\n---Sorted Tasks---")
+
+            if len(tasks) == 0:
+                print("No tasks to display.")
+
+            for i in range(len(tasks)):
+                if completed_tasks[i] == True:
+                    status = "Done"
+                else:
+                    status = "Pending"
+
+                print("\nTask: ",i+1)
+                print("Name: ",tasks[i])
+                print("Status: ", status)
+                print("Priority: ", priorities[i])
+                print("Deadline: ",deadlines[i])
+                print("Notes: ",notes[i])
+
+        else:
+            print("Invalid Sorting Choice.")            
+
+    elif choice == 9:
         today = datetime.date.today()
         found = False
 
@@ -251,7 +340,7 @@ while True:
         if found == False:
                 print("No urgent deadlines. Yeay!")
 
-    elif choice == 9:
+    elif choice == 10:
         file = open("tasks.txt", "w")
 
         for i in range(len(tasks)):
