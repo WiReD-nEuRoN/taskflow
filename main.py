@@ -62,7 +62,8 @@ while True:
     print("7. Filter Tasks")
     print("8. Sort Tasks")
     print("9. Deadline Alerts")
-    print("10. Exit")
+    print("10. Edit Tasks")
+    print("11. Exit")
     print("-"*35)
 
     choice = int(input("Enter Choice: "))
@@ -341,6 +342,78 @@ while True:
                 print("No urgent deadlines. Yeay!")
 
     elif choice == 10:
+        if len(tasks) == 0:
+            print("No tasks available to edit.")
+        else:
+            print("\n---Edit Task---")
+
+            for i in range(len(tasks)):
+                print(i+1,".",tasks[i])
+
+            num = int(input("Enter task number to edit: "))
+
+            if num >= 1 and num <= len(tasks):
+                print("\nSelected Task: ", tasks[num-1])
+                print("1. Edit Task Name")
+                print("2. Edit Notes")
+                print("3. Edit priority")
+                print("4. Edit Deadline")
+
+                edit_chc = int(input("Choose what to edit: "))
+
+                if edit_chc == 1:
+                    new_name = input("Enter new task name: ")
+
+                    if new_name.strip() == "":
+                        print("Task name cannot be empty.")
+                    else:
+                        tasks[num-1] = new_name
+                        print("Task name updated")
+                elif edit_chc == 2:
+                    new_note = input("Enter new note: ")
+                    notes[num-1] = new_note
+                    print("Note Updated!")
+
+                elif edit_chc == 3:
+                    print("\nChoose new priority")
+                    print("1. High")
+                    print("2. Medium")
+                    print("3. Low")
+
+                    p_chc = int(input("Enter priority: "))
+
+                    if p_chc == 1:
+                        priorities[num-1] = "High"
+                        print("Priority Updated.")
+                    elif p_chc == 2:
+                        priorities[num-1] = "Medium"
+                        print("Priorities Updated.")
+                    elif p_chc == 3:
+                        priorities[num-1] = "Low"
+                        print("Priorities Updated.")
+                    else:
+                        print("Invalid Choice")
+
+                elif edit_chc == 4:
+                    new_deadline = input("Enter new deadline(DD-MM-YYYY): ")
+
+                    try:
+                        datetime.datetime.strptime(
+                            new_deadline.strip(), "%d-%m-%Y"
+                        )
+
+                        deadlines[num-1] = new_deadline.strip()
+                        print("Deadline Updated")
+                    except ValueError:
+                        print("Inavlid Date Format!")
+                        print("Please use DD-MM-YYYY")
+
+                else:
+                    print("Invalid Edit Choice.")
+            else:
+                print("Invalid task number")
+
+    elif choice == 11:
         file = open("tasks.txt", "w")
 
         for i in range(len(tasks)):
