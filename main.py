@@ -299,10 +299,11 @@ while True:
         print("1. Sort by priority")
         print("2. Sort by Deadline")
         print("3. Sort by Status")
+        print("4. Sort by Priority and Deadline")
 
         sort_chc = int(input("\nChoose Sorting method: "))
 
-        if sort_chc == 1 or sort_chc == 2 or sort_chc == 3:
+        if sort_chc == 1 or sort_chc == 2 or sort_chc == 3 or sort_chc == 4:
             for i in range(len(tasks)):
                 for j in range(i+1, len(tasks)):
                     swap = False
@@ -359,6 +360,46 @@ while True:
                         temp = notes[i]
                         notes[i] = notes[j]
                         notes[j] = temp
+
+                    elif sort_chc == 4:
+                        priority_i = 0
+                        priority_j = 0
+
+                        if priorities[i] == "High":
+                            priority_i = 1
+                        elif priorities[i] == "Medium":
+                            priority_i = 2
+                        elif priorities[i] == "Low":
+                            priority_i = 3
+
+                        if priorities[j] == "High":
+                            priority_j = 1
+                        elif priorities[j] == "Medium":
+                            priority_j = 2
+                        elif priorities[j] == "Low":
+                            priority_j = 3
+
+                        if priority_i > priority_j:
+                            swap = True
+
+                        elif priority_i == priority_j:
+                            try:
+                                deadline_i = datetime.datetime.strptime(
+                                    deadlines[i].strip(), "%d-%m-%Y"
+                                ).date()
+                            except ValueError:
+                                deadline_i = datetime.date.max
+
+                            try:
+                                deadline_j = datetime.datetime.strptime(
+                                    deadlines[j].strip(), "%d-%m-%Y"
+                                ).date()
+                            except ValueError:
+                                deadline_j = datetime.date.max
+
+                            if deadline_i > deadline_j:
+                                swap = True
+                        
 
             print("\nTasks sorted successfully")
             print("\n---Sorted Tasks---")
