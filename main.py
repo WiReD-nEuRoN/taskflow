@@ -57,6 +57,30 @@ while True:
     print("Total Tasks:", total)
     print("Completed:", done)
     print("Pending:", pending)
+
+    if total > 0:
+        percentage = (done/total)*100
+        filled_blocks = int((done/total)*10)
+        empty_blocks = 10 - filled_blocks
+
+        progress_bar = "["
+
+        for i in range(filled_blocks):
+            progress_bar = progress_bar + "#"
+
+        for i in range(empty_blocks):
+            progress_bar = progress_bar + "-"
+
+        progress_bar = progress_bar + "]"
+
+        print("\n---Task Progress---")
+        print("Progress:", progress_bar, round(percentage,1),"%")
+        print("Completed:", done, "/",total,"tasks") 
+    else:
+        print("\n---Task Progress---")
+        print("Progress: [------------] 0%")
+        print("Completed: 0/0 tasks")
+
     print("="*35)
 
     print("1. Add task")
