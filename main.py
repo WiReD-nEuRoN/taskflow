@@ -7,6 +7,7 @@ deadlines = []
 notes = []
 categories = []
 deleted_task = []
+favorites = []
 
 try:
     file = open("tasks.txt", "r")
@@ -18,6 +19,10 @@ try:
         completed_tasks.append(data[1]=="True")
         priorities.append(data[2])
         deadlines.append(data[3])
+        if len(data) >= 7:
+            favorites.append(data[6] == "True")
+        else:
+            favorites.append(False)
 
         if len(tasks) >= 5:
             notes.append(tasks[4])
@@ -95,7 +100,9 @@ while True:
     print("9. Deadline Alerts")
     print("10. Edit Tasks")
     print("11. Undo Last deletion")
-    print("12. Exit")
+    print("12. Mark/Unmark Favorite")
+    print("13. View Favorite Tasks")
+    print("14. Exit")
     print("-"*35)
 
     try:
@@ -159,6 +166,7 @@ while True:
             category = "General"
 
         categories.append(category)
+        favorites.append(False)
 
         print("Task added!")
 
@@ -173,7 +181,10 @@ while True:
                 status = "Pending"
 
             print("\nTask: ",i+1)
-            print("Name: ", tasks[i])
+            if favorites[i] == True:
+                print("Name: ⭐", tasks[i])
+            else:
+                print("Name: ",tasks[i])
             print("Status: ", status)
             print("Priority: ", priorities[i])
             print("Deadline: ", deadlines[i])
@@ -224,7 +235,8 @@ while True:
                     priorities[num-1],
                     deadlines[num-1],
                     notes[num-1],
-                    categories[num-1]
+                    categories[num-1],
+                    favorites[num-1]
                 ]
 
                 tasks.pop(num-1)
@@ -646,6 +658,46 @@ while True:
             print("Task Restored successfully!")
 
     elif choice == 12:
+        if len(tasks) == 0:
+            print("No tasks available.")
+        else:
+            print("\n---Mark/Unmark Favorite")
+
+            for i in range(len(tasks)):
+                print(i+1,".",tasks[i])
+
+            try:
+                num = int(input("Enter task number: "))
+            except ValueError:
+                num = 0
+                print("Please Enter a valid number.")
+
+            if num >= 1 and num <= len(tasks):
+                if favorites[num-1] == False:
+                    favorites[num] = True
+                    print("Task added to favorites")
+                else:
+                    favorites[num-1] = False
+                    print("Task removed from favorites.")
+            else:
+                print("Invalid task number.")
+
+    elif choice == 13:
+        print("\n---Favorite Tasks---")
+        found = False
+
+        for i in range(len(tasks)):
+            if favorites[i] == True:
+                print("\nTask:",i+1)
+                print("Name: ",tasks[i])
+                print("Priority: ", priorities[i])
+                print("Deadline: ",deadlines[i])
+                found = True
+
+        if found == False:
+            print("No favorite tasks yet.")
+
+    elif choice == 14:
         file = open("tasks.txt", "w")
 
         for i in range(len(tasks)):
@@ -655,7 +707,8 @@ while True:
                 priorities[i] + "|" +
                 deadlines[i] + "|" +
                 notes[i] + "|" +
-                categories[i] + "\n"
+                categories[i] + "|" +
+                str(favorites[i]) + "\n"
             )
         file.close()
         print("Tasks Saved")
@@ -664,4 +717,3 @@ while True:
 
     else:
         print("Invalid Choice")
-

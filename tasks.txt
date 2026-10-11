@@ -1,4 +1,4 @@
 Help mom|False|High|23-09-2026||General
-Do math hw|False|Low|22-09-2026||General
-Prepare Speech|False|Medium|17-10-2026||School
 Ship project|True|High|20-10-2026||General
+Prepare Speech|False|Medium|17-10-2026||School
+Do math hw|False|Low|22-09-2026||General
