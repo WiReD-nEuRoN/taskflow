@@ -366,25 +366,42 @@ while True:
                     swap = False
 
                     if sort_chc == 1:
-                        priority_i = 0
-                        priority_j = 0
+                        if len(tasks) == 0:
+                            print("No tasks to sort.")
+                        else:
+                            for i in range(len(tasks)):
+                                for j in range(i+1,len(tasks)):
+                                    if priorities[i].lower() == "low":
+                                        if priorities[j].lower() == "high":
+                                            tasks[i], tasks[j] = tasks[j], tasks[i]
+                                            completed_tasks[i], completed_tasks[j] = completed_tasks[j], completed_tasks[i]
+                                            priorities[i], priorities[j] = priorities[j], priorities[i]
+                                            deadlines[i], deadlines[j] = deadlines[j], deadlines[i]
+                                            notes[i], notes[j] = notes[j], notes[i]
+                                            categories[i], categories[j] = categories[j], categories[i]
 
-                        if priorities[i] == "High":
-                            priority_i = 1
-                        elif priorities[i] == "Medium":
-                            priority_i = 2
-                        elif priorities[i] == "Low":
-                            priority_i = 3
+                                    if priorities[i].lower() == "low":
+                                        if priorities[i].lower() == "medium":
+                                            tasks[i], tasks[j] = tasks[j], tasks[i]
+                                            completed_tasks[i], completed_tasks[j] = completed_tasks[j], completed_tasks[i]
+                                            priorities[i], priorities[j] = priorities[j], priorities[i]
+                                            deadlines[i], deadlines[j] = deadlines[j], deadlines[i]
+                                            notes[i], notes[j] = notes[j], notes[i]
+                                            categories[i], categories[j] = categories[j], categories[i]
 
-                        if priorities[j] == "High":
-                            priority_j = 1
-                        elif priorities[j] == "Medium":
-                            priority_j = 2
-                        elif priorities[j] == "Low":
-                            priority_j = 3
+                                    if priorities[i].lower() == "medium":
+                                        if priorities[j].lower() == "high":
+                                            tasks[i], tasks[j] = tasks[j], tasks[i]
+                                            completed_tasks[i], completed_tasks[j] = completed_tasks[j], completed_tasks[i]
+                                            priorities[i], priorities[j] = priorities[j], priorities[i]
+                                            deadlines[i], deadlines[j] = deadlines[j], deadlines[i]
+                                            notes[i], notes[j] = notes[j], notes[i]
+                                            categories[i], categories[j] = categories[j], categories[i]
+                                            
+                            print("Tasks sorted by priority")
+                                    
 
-                        if priority_i > priority_j:
-                            swap = True
+
 
                     elif sort_chc == 2:
                         try:
