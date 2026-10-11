@@ -6,6 +6,7 @@ priorities = []
 deadlines = []
 notes = []
 categories = []
+deleted_task = []
 
 try:
     file = open("tasks.txt", "r")
@@ -93,7 +94,8 @@ while True:
     print("8. Sort Tasks")
     print("9. Deadline Alerts")
     print("10. Edit Tasks")
-    print("11. Exit")
+    print("11. Undo Last deletion")
+    print("12. Exit")
     print("-"*35)
 
     try:
@@ -215,13 +217,23 @@ while True:
             confirmation = input("Are you sure you want to delete this task? (yes/no): ")
 
             if confirmation == "yes":
+
+                deleted_task = [
+                    tasks[num-1],
+                    completed_tasks[num-1],
+                    priorities[num-1],
+                    deadlines[num-1],
+                    notes[num-1],
+                    categories[num-1]
+                ]
+
                 tasks.pop(num-1)
                 completed_tasks.pop(num-1)
                 priorities.pop(num-1)
                 deadlines.pop(num-1)
                 notes.pop(num-1)
                 categories.pop(num-1)
-                print("Task deleted!")
+                print("Task deleted! You can undo this deletion")
             elif confirmation == "no":
                 print("Task Deletion cancelled.")
 
@@ -602,6 +614,21 @@ while True:
                 print("Invalid task number")
 
     elif choice == 11:
+        if len(deleted_task) == 0:
+            print("No deleted task to restore.")
+        else:
+            tasks.append(deleted_task[0])
+            completed_tasks.append(deleted_task[1])
+            priorities.append(deleted_task[2])
+            deadlines.append(deleted_task[3])
+            notes.append(deleted_task[4])
+            categories.append(deleted_task[5])
+
+            deleted_task = []
+
+            print("Task Restored successfully!")
+
+    elif choice == 12:
         file = open("tasks.txt", "w")
 
         for i in range(len(tasks)):
